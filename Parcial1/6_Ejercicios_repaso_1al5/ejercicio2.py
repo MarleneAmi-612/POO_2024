@@ -2,4 +2,6 @@
 # pares del 1 al 20 
 
 
-#aiudaaa
+for num in range(1,11):
+    numpar=num*2
+    print(numpar)
