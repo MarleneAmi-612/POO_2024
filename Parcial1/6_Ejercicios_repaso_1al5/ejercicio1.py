@@ -2,14 +2,8 @@
 # Mostrar su valor en pantalla
 #Poner un comentario para poner el tipo de dato
 
-#Creacion de variables
-pais="30"
-continente=30
 
-#MOstrar en pantalla
-print(f"{pais}, tipo de dato {type(pais)}")
+pais="Italia" #Tipo de tado str
+continente="America" #Tipo de dato str
 
-
-print(f"{continente}, tipo de dato {type(continente)}")
-
-
+print(f"{pais} no esta en el continente {continente}")
