@@ -1,0 +1,9 @@
+(lambda numero1 , numero2: print(numero1 * numero2))(45,12)
+
+multiplicacion= lambda numero1,numero2:numero1*numero2
+
+resultado1=multiplicacion(85,48)
+resultado2=multiplicacion(12,63)
+
+print(resultado1)
+print(resultado2)
