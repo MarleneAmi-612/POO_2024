@@ -1,39 +1,96 @@
+#AQUI ESTA EL MENU DE OPCIONES
+#Todo esta mal, de apoco le hacemos sus modificaciones correspondientes
+#Estoy usando el menu de otro proyecto para adaptarlo en una veterinaria
+
 from veterinaria import *
+import getpass   #solicitar contraseñas al usuario sin mostrarlas en la pantalla
+from funciones import *
 
-# Crear el objeto cliente1
-cliente1 = Clientes(
-    identificador=4598478,
-    nombre="Juan Chuchin",
-    edad=23,
-    telefono="618123948",
-    correo="juan@gmail.com"
-)
+def menu_inicial():
+    while True:
+        borrarPantalla()
+        print("""
+      .::  Menu Principal ::. 
+          1.- Registrar cliente
+          2.- Citas
+          3.- Salir 
+          """)
+        opcion = input("\t Elige una opción: ")
 
-# Crear el objeto animal1
-animal1 = Animales(
-    nombre="Piolin",
-    edad=3,
-    especie="pajaro",
-    raza="desconocida",
-    color="amarillo",
-    tamaño="pequeño",
-    esterilizado=False,
-    vacunas=False
-)
+        if opcion == '1':
+            borrarPantalla()
+            print("\n \t ..:: Registro en el Sistema ::..")
+            nombre = input("\t ¿Cuál es tu nombre?: ")
+            apellidos = input("\t ¿Cuáles son tus apellidos?: ")
+            email = input("\t Ingresa tu email: ")
+            password = getpass.getpass("\t Ingresa tu contraseña: ")
+            usuario_actual = usuario.Usuarios(None, nombre, apellidos, email, password, None)
+            usuario_actual.registrar()
+            esperarTecla()
+        elif opcion == '2':
+            borrarPantalla()
+            print("\n \t ..:: Inicio de Sesión ::.. ")     
+            email = input("\t Ingresa tu E-mail: ")
+            password = getpass.getpass("\t Ingresa tu Contraseña: ")
+            usuario_actual = usuario.Usuarios(None, None, None, email, password, None)
+            if usuario_actual.iniciar_sesion(email, password):
+                menu_notas(usuario_actual.id, usuario_actual.nombre, usuario_actual.apellidos)
+            else:
+                print("\n\tCredenciales incorrectas. Inténtalo de nuevo.")
+            esperarTecla()
+        elif opcion == '3':
+            print("\n\t.. ¡Gracias Bye! ...")
+            break
+        else:
+            print("\n \t \t Opción no válida. Intenta de nuevo.")
+            esperarTecla()
 
-# Crear el objeto empleado1
-empleado1 = Empleados(
-    identificador=1,
-    nombre="Mariela Vazquez",
-    edad=45,
-    telefono="61898034",
-    correo="mariela@agencia.com",
-    titulo="Doctor cirujano",
-    especialidad="esterilizaciones",
-    encargado_servicio="Cirugías"
-)
+def menu_notas(usuario_id, nombre, apellidos):
+    while True:
+        borrarPantalla()
+        print(f"\n \t \t \t Bienvenido {nombre} {apellidos}, has iniciado sesión ...")
+        print("""
+                  \n \t 
+                      .::  Menu Notas ::. 
+                  1.- Crear 
+                  2.- Mostrar
+                  3.- Cambiar
+                  4.- Eliminar
+                  5.- Salir 
+                  """)
+        opcion = input("\t\t Elige una opción: ")
 
-# Verificar los datos de los objetos
-print(f"Cliente: {cliente1.getNombre()}, Edad: {cliente1.getEdad()}, Teléfono: {cliente1.getTelefono()}, Correo: {cliente1.getCorreo()}, ID: {cliente1.getIdentificador()}")
-print(f"Animal: {animal1.getNombreMascota()}, Edad: {animal1.getEdadMasc()}, Especie: {animal1.getEspecie()}, Raza: {animal1.getRaza()}, Color: {animal1.getColor()}, Tamaño: {animal1.getTamaño()}, Esterilizado: {animal1.getEsterilizado()}, Vacunas: {animal1.getVacunas()}")
-print(f"Empleado: {empleado1.getNombre()}, Edad: {empleado1.getEdad()}, Teléfono: {empleado1.getTelefono()}, Correo: {empleado1.getCorreo()}, Título: {empleado1.getTitulo()}, Especialidad: {empleado1.getEspecialidad()}, Servicio: {empleado1.getEncargadoServicio()}")
+        if opcion == '1':
+            borrarPantalla()
+            print(f"\n \t .:: Crear Nota ::. ")
+            titulo = input("\tTitulo: ")
+            descripcion = input("\tDescripción: ")
+            nueva_nota = nota.Notas(None, usuario_id, titulo, descripcion, None)
+            nueva_nota.crear()
+            esperarTecla()
+        elif opcion == '2':
+            borrarPantalla()
+            nota.Notas.mostrar(usuario_id)
+            esperarTecla()
+        elif opcion == '3':
+            borrarPantalla()
+            print(f"\n \t .:: {nombre} {apellidos}, vamos a modificar una Nota ::. \n")
+            id = input("\t \t ID de la nota a actualizar: ")
+            titulo = input("\t Nuevo título: ")
+            descripcion = input("\t Nueva descripción: ")
+            nota.Notas.actualizar(id, titulo, descripcion)
+            esperarTecla()
+        elif opcion == '4':
+            borrarPantalla()
+            print(f"\n \t .:: {nombre} {apellidos}, vamos a borrar una Nota ::. \n")
+            id = input("\t \t ID de la nota a eliminar: ")
+            # Aquí agregarías la lógica para eliminar la nota
+            esperarTecla()
+        elif opcion == '5':
+            break
+        else:
+            print("\n \t \t Opción no válida. Intenta de nuevo.")
+            esperarTecla()
+
+if __name__ == "__main__":
+    menu_principal()
